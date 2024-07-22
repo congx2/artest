@@ -2,6 +2,14 @@
   "pages": [
     "pages/index/index"
   ],
+  "subPackages": [
+    {
+      "root": "pages/ar",
+      "pages": [
+        "2dmarker-ar/2dmarker-ar"
+      ]
+    }
+  ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "Weixin",

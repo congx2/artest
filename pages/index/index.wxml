@@ -1,3 +1,4 @@
+<canvas type="webgl" id="canvas" class="camera-view" />
 <view class="container">
   <view class="title">{{images.length ? '目标识别图片' : '请选择目标识别图片'}}</view>
   <view class="images">
@@ -7,4 +8,5 @@
   </view>
   <button class="btn" type="primary" bind:tap="choosePic">上传图片</button>
   <button class="btn" type="primary" bind:tap="startAR">识别</button>
+  <button classbtn type="primary" bind:tap="toARPage">To AR Page</button>
 </view>

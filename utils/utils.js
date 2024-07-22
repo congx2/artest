@@ -1,4 +1,15 @@
 
+
+export const usePromise = () => {
+  let resolve
+  let reject
+  const promise = new Promise((resolver,  rejector) => {
+    resolve = resolver
+    reject = rejector
+  })
+  return [promise, resolve, reject]
+}
+
 export const getVKSupportVersion = () => {
 	if (typeof wx.isVKSupport !== 'function') {
 		return ''
@@ -11,3 +22,4 @@ export const getVKSupportVersion = () => {
 	}
 	return ''
 }
+
