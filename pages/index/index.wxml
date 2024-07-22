@@ -3,7 +3,7 @@
   <view class="title">{{images.length ? '目标识别图片' : '请选择目标识别图片'}}</view>
   <view class="images">
     <view class="pic-box" wx:for="{{images}}" wx:key="index">
-      <view class="pic" style="background-image:url({{item.path}});"></view>
+      <view class="pic" style="background-image:url('{{item.path}}');"></view>
     </view>
   </view>
   <button class="btn" type="primary" bind:tap="choosePic">上传图片</button>

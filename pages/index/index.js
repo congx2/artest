@@ -5,7 +5,8 @@ import threeBehavior from './behavior-three'
 Page({
 	behaviors: [threeBehavior],
 	data: {
-		images: []
+		images: [],
+		markers: []
 	},
 
 	onLoad() {
@@ -18,7 +19,6 @@ Page({
 			width: 0,
 			height: 0
 		}
-		// this.vk = this.initVK()
 	},
 
 	onReady() {
@@ -58,7 +58,7 @@ Page({
 
       // 初始化VK
       // start完毕后，进行更新渲染循环
-    this.initVK();
+    // this.initVK();
 	},
 
 	loop() {
@@ -102,38 +102,8 @@ Page({
 			return Object.assign(acc, { [item]: images[index] })
 		}, {})
 		console.log('markerMap: ', markerMap)
-		this.setData({ images: images.slice(0, 4) })
+		this.setData({ images: images.slice(0, 4), markers })
 		console.log('images: ', this.data.images)
-	},
-
-	initVK() {
-		const vkSupportVersion = getVKSupportVersion()
-		const vkOptions = {
-			track: {
-				plane: {
-					mode: 3
-				},
-				marker: true,
-			},
-			version: 'v1',
-		}
-		const vk = wx.createVKSession(vkOptions)
-		const listeners = [
-			{
-				event: 'addAnchors',
-				handler: this.vkAddAnchorsListener.bind(this)
-			},
-			{
-				event: 'updateAnchors',
-				handler: this.vkUpdateAnchorsListener.bind(this)
-			},
-			{
-				event: 'removeAnchors',
-				handler: this.vkRemoveAnchorsListener.bind(this)
-			}
-		]
-		listeners.forEach(item => vk.on(item.event, item.handler))
-		return vk
 	},
 
 	vkAddAnchorsListener(anchors) {
@@ -148,8 +118,8 @@ Page({
 		console.log('vkRemoveAnchorsListener anchors: ', anchors)
 	},
 
-	addMarker() {
-		this.vk.addMarker()
+	addMarker(path) {
+		this.vk.addMarker(path)
 	},
 
 	async saveImageToLocalFile(imagePath) {
@@ -180,8 +150,8 @@ Page({
 
 	setVKListeners(vk) {
 		vk.on('addAnchors', this.vkAddAnchorsListener.bind(this))
-		vk.on('updateAnchors', this.vkUpdateAnchorsListener.bind(this))
-		vk.on('removeAnchors', this.vkRemoveAnchorsListener.bind(this))
+		// vk.on('updateAnchors', this.vkUpdateAnchorsListener.bind(this))
+		// vk.on('removeAnchors', this.vkRemoveAnchorsListener.bind(this))
 	},
 
 
@@ -190,6 +160,11 @@ Page({
 			console.log('vk start e: ', e)
 			if (e) {
 				throw e
+			}
+			if (this.data.markers) {
+				while(this.data.markers.length) {
+					this.addMarker(this.data.markers.shift())
+				}
 			}
 			this.setVKListeners(this.vk)
 			this.loop()
