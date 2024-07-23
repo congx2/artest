@@ -1,0 +1,7 @@
+{
+  "renderer": "xr-frame",
+  "usingComponents": {
+    "axr-tracker-2dmarker": "../../components/axr-tracker-2dmarker/axr-tracker-2dmarker"
+  }
+}
+
