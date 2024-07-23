@@ -1,0 +1,22 @@
+<xr-scene
+    ar-system="modes:Marker;planeMode:1;"
+    bind:ready="onSceneReady"
+    bind:ar-ready="onARReady"
+>
+  <xr-node>
+    <!-- 识别成功后放置的世界位置 -->
+    <!-- marker 会动态创建并放在root下 -->
+    <xr-shadow id="root" />
+    <xr-camera
+        is-ar-camera
+        id="camera"
+        node-id="camera"
+        clear-color="0.925 0.925 0.925 1"
+        background="ar" 
+    />
+  </xr-node>
+  <xr-node node-id="lights">
+    <xr-light type="ambient" color="1 1 1" intensity="1" />
+    <xr-light type="directional" rotation="180 0 0" color="1 1 1" intensity="3" />
+  </xr-node>
+</xr-scene>
